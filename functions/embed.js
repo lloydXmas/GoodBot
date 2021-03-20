@@ -10,6 +10,7 @@ module.exports = {
     let raidChannel = await client.channels.cache.find(c => c.id == raid.channelID);
     let embed = await client.embed.updateEmbed(client, raidChannel, raid);
     let crosspostChannel = null;
+
     if (raid.crosspostID && raid.crosspostID.length) {
       crosspostChannel = await client.channels.cache.find(c => c.id == raid.crosspostID);
     }
@@ -38,6 +39,8 @@ module.exports = {
     pinnedMsg.edit(embed);
   },
   updateEmbed: async (client, channel, raid) => {
+    let attendees = await client.models.attendance.findAll({ where: { raidID: raid.id }, attributes: ['player'], raw: true });
+
     let raidName = '';
     let raids = {
       'mc': 'Molten Core',
@@ -96,6 +99,7 @@ module.exports = {
         "healer": client.emojis.cache.find(emoji => emoji.name === "GBhealer").toString(),
         "dps": client.emojis.cache.find(emoji => emoji.name === "GBdps").toString(),
         "caster": client.emojis.cache.find(emoji => emoji.name === "GBcaster").toString(),
+        "checkmark": client.emojis.cache.find(emoji => emoji.name === "check").toString()
       }
     } catch (error) {
       emojis = {
@@ -217,9 +221,23 @@ module.exports = {
 
       // Generate our signup string
       let signupString = emojis[signup.character.class] + ' ' + signup.character.name;
+
       if (raid.confirmation) {
-        signupString = signup.confirmed && signup.signup == 'yes' ? '**' + signupString + '**' : '*' + signupString + '*';
+
+        if ((signup.confirmed && signup.signup == 'yes') && (attendees.find(e => e.player == signup.player))) {
+          signupString = '**' + signupString + '**' + emojis['checkmark']
+        }
+        else if (signup.confirmed && signup.signup == 'yes') {
+          signupString = '**' + signupString + '**'
+        }
+        else if (attendees.find(e => e.player == signup.player)) {
+          signupString = '*' + signupString + '*' + emojis['checkmark']
+        } else {
+          signupString = '*' + signupString + '*'
+
+        }
       }
+
 
       // Add signup number
       signupString += ' [' + signup.order + ']';
@@ -280,10 +298,9 @@ module.exports = {
     );
 
     if (raid.confirmation) {
-      embed.addField('**Confirmation Mode**',
-        'Please note that confirmation mode has been enabled!\n' +
-        '**Bold** names are currently confirmed for the raid. \n' +
-        '*Italicized* names may or may not be brought to this raid.'
+      embed.addField('**Confirmation Mode** enabled',
+        '**Bold** names are confirmed. *Italicized* names are unconfirmed. \n' +
+        'Names with ' + emojis['checkmark'] + ' have been recorded for attendance.'
       );
     }
 
