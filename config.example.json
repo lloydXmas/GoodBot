@@ -1,25 +1,61 @@
-{ 
-	"botname": "GoodBot Dev",
-	"botactivity": "World of Warcraft: Classic",
-	"token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-	"userId": 721420612400316456,
-	"prefix" : "+",
-	"owner" : 93398761979514880,
-	"googleProjectId": "api-project-483394155093",
-	"bankFile": "F:\\World of Warcraft\\_classic_\\WTF\\Account\\SITUATIONSOAP\\SavedVariables\\GoodBank.lua",
-	"epgpFile": "F:\\World of Warcraft\\_classic_\\WTF\\Account\\LAD\\SavedVariables\\GoodEPGP.lua",
-	"warcraftlogs": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
-	"db": {
-		"name": "GoodBotDev",
-		"ip": "localhost",
-		"user": "root",
-		"pass": "",
-		"name": "GoodBot"
-	},
-	"validSpecs": ["Protection", "Fury", "Arms", "Demonology", "Affliction", "Destruction", "Holy", "Discipline", "Shadow", "Feral", "Restoration", "Balance", "Retribution", "Subtlety", "Combat", "Assassination", "Fire", "Frost", "Arcane", "Survival", "Beast Mastery", "Marksmanship", "Elemental", "Enhancement"],
-	"validClasses": ["Warrior", "Paladin", "Hunter", "Shaman", "Rogue", "Druid", "Priest", "Mage", "Warlock"],
-	"WCL": { 
-		"id": "id-goes-here",
-		"secret": "secret-goes-here"
-	}
+{
+  "botname": "GoodBot Dev",
+  "botactivity": "World of Warcraft: Classic",
+  "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "userId": 721420612400316456,
+  "prefix": "+",
+  "owner": 93398761979514880,
+  "googleProjectId": "api-project-483394155093",
+  "bankFile": "F:\\World of Warcraft\\_classic_\\WTF\\Account\\SITUATIONSOAP\\SavedVariables\\GoodBank.lua",
+  "epgpFile": "F:\\World of Warcraft\\_classic_\\WTF\\Account\\LAD\\SavedVariables\\GoodEPGP.lua",
+  "warcraftlogs": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "imgURL": "http://imagbase.com/goes/here/",
+  "db": {
+    "name": "GoodBotDev",
+    "ip": "localhost",
+    "user": "root",
+    "pass": "",
+    "name": "GoodBot"
+  },
+  "validSpecs": [
+    "Protection",
+    "Fury",
+    "Arms",
+    "Demonology",
+    "Affliction",
+    "Destruction",
+    "Holy",
+    "Discipline",
+    "Shadow",
+    "Feral",
+    "Restoration",
+    "Balance",
+    "Retribution",
+    "Subtlety",
+    "Combat",
+    "Assassination",
+    "Fire",
+    "Frost",
+    "Arcane",
+    "Survival",
+    "Beast Mastery",
+    "Marksmanship",
+    "Elemental",
+    "Enhancement"
+  ],
+  "validClasses": [
+    "Warrior",
+    "Paladin",
+    "Hunter",
+    "Shaman",
+    "Rogue",
+    "Druid",
+    "Priest",
+    "Mage",
+    "Warlock"
+  ],
+  "WCL": {
+    "id": "id-goes-here",
+    "secret": "secret-goes-here"
+  }
 }

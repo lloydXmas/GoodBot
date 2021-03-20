@@ -5,3 +5,4 @@ google.json
 wav/*
 signups/*
 package-lock.json
+.DS_Store
