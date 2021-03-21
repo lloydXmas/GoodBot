@@ -377,3 +377,47 @@ To upload your standings:
   * Choose your GoodEPGP.lua file from inside your SavedVariables folder
   * Click Upload
 
+## Attendance
+
+The easiest way to manage attendance is by using `+att-addconf`. This records all confirmed players for a given raid as attending. The raid leader can manage confirmations and standbys as usual leading up to a raid, and *after* the raid is formed, use `+confirm` or `+unconfirm` to reflect those in attendance, and finalize with `+att-addconf`. 
+
+When a player is recorded for attending, GoodBot adds a checkmark next to their name in the raid  channel's embed. Further modification to the attendance can be done with the following commands:
+
+```
++att-add [player]
++att-remove [player]
+```
+
+These commands add or remove a player (or a comma separated list of players) to the database. If all players are removed from a given raid record, that raid's ID is no longer in the database and will not be counted when exporting players' overall attendance. 
+
+Exporting results to Google spreadsheet is done with `+att-export`. The spreadsheet will lose all of its data when run. A raid leader may want to quickly check raid attendance without exporting a spreadsheet. Running `+att-query percent` will return a message with players and their attendance percentage.  
+
+
+
+```
++att-addconf
+  Add all confirmed players to the database
+  
++att-add [player]
+  Add player or list of players
+  
++att-remove [player]
+  Remove player or list of players
+  
++setoption att-sheet SheetID
+  Set Google Spreadsheet ID for attendance exports
+  
++att-export 
+  Export records to spreadsheet
+  
++att-query percent
+  Query players' attendance percentages
+  
++att-query raid
+  Query raid ID's
+  
++att-removeid [id]
+  Remove a raid ID (or ID's) from database
+  
+```
+
