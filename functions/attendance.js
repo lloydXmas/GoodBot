@@ -38,11 +38,13 @@ module.exports = {
     })
     return promise
   },
-  removeID(client, raidID) {
+  removeID(client, raidID, guildID) {
+    console.log(`guildID: ${guildID}, raidID: ${raidID}`)
     let promise = new Promise((resolve, reject) => {
-      return client.models.attendance.count({ where: { raidID: raidID } })
+      // get a count of number removed
+      return client.models.attendance.count({ where: { [Op.and]: [{ raidID: raidID }, { guildID: guildID }] } })
         .then((result) => {
-          return client.models.attendance.destroy({ where: { raidID: raidID } })
+          return client.models.attendance.destroy({ where: { [Op.and]: [{ raidID: raidID }, { guildID: guildID }] } })
             .then(() => { resolve(result) })
         })
     })
@@ -95,11 +97,12 @@ module.exports = {
     })
     return promise
   },
-  queryAll(client) {
+  queryAll(client, guildID) {
     let promise = new Promise((resolve, reject) => {
       let raidList = {}
       client.models.attendance.findAll({
         raw: true,
+        where: { guildID: guildID },
         attributes: [
           [Sequelize.fn('DISTINCT', Sequelize.col('raidID')), 'raidID'],
           'raid',
@@ -137,5 +140,4 @@ module.exports = {
     })
     return promise
   }
-
 }
