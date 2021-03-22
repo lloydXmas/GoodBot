@@ -17,7 +17,7 @@ exports.run = async function (client, message, args) {
 
   } else if (type == 'raids') { // query raidID's and raid zone/date
     let reply = '```'
-    result = await client.attendance.queryAll(client)
+    result = await client.attendance.queryAll(client, message.guild.id)
     for (i in result) {
       let newDate = result[i].date.replace(/(\d{4})\-(\d\d)\-(\d\d)/, "$2/$3/$1")
       newDate = newDate.replace(/^0+/, '')
@@ -27,7 +27,7 @@ exports.run = async function (client, message, args) {
     message.author.send("**RAID ID's**\n" + reply)
 
   } else if (type == 'percent') { // query all raid records
-    result = await client.attendance.queryAll(client)
+    result = await client.attendance.queryAll(client, message.guild.id)
     let totalRaids = Object.keys(result).length
     let playerNames = []
     client.models.character.findAll({ where: { guildID: message.guild.id }, attributes: ['name'] }).then((players) => {

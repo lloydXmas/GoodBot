@@ -23,7 +23,7 @@ exports.run = async function (client, message, args) {
   sheetCounter = []
 
   // query all raid records
-  result = await client.attendance.queryAll(client)
+  result = await client.attendance.queryAll(client, message.guild.id)
 
   let totalRaids = Object.keys(result).length
   for (sheetNum = 0; sheetNum < totalRaids; sheetNum++) {
@@ -55,7 +55,7 @@ exports.run = async function (client, message, args) {
 
   async function summaryCells() {
     var allData = []
-    result = await client.attendance.queryAll(client)
+    result = await client.attendance.queryAll(client, message.guild.id)
     let totalRaids = Object.keys(result).length
     let playerNames = []
     client.models.character.findAll({ where: { guildID: message.guild.id }, attributes: ['name'] }).then((players) => {
