@@ -17,6 +17,8 @@ module.exports = {
   },
   addAll(client, raidID, raidName, raidDate, channelID, guildID) {
     let playerNames = []
+
+    // build array of players from signups
     let promise = new Promise((resolve, reject) => {
       client.models.signup.findAll({ raw: true, where: { raidID: raidID }, attributes: ['player'] }).then((results) => {
         results.forEach(result => {
@@ -32,8 +34,18 @@ module.exports = {
         })
         return (playerNames)
       }).then((playerNames) => {
-        client.models.attendance.bulkCreate(playerNames, { updateOnDuplicate: ["raidID"] })
-        resolve(true)
+        // compare array against list of players already in db
+        let results = client.models.attendance.findAll({ raw: true, where: { [Op.and]: [{ raidID: raidID }, { guildID: guildID }] }, attributes: ['player'] }).then((res) => {
+
+          let filtered = playerNames.filter((objFromA) => {
+            return !res.find((objFromB) => {
+              return objFromA.player === objFromB.player
+            })
+          })
+          // add filtered players to db
+          client.models.attendance.bulkCreate(filtered)
+          resolve(true)
+        })
       })
     })
     return promise
@@ -140,4 +152,5 @@ module.exports = {
     })
     return promise
   }
+
 }
